@@ -1,0 +1,6 @@
+{
+  "name": "APK Extractor",
+  "description": "Extract installed applications as APK files and save them to the device's public Downloads directory.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

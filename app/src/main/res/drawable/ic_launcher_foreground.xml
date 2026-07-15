@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Outer tech glowing circle -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#00F0FF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M 54,18 A 36,36 0 1 1 53.9,18" />
+    
+    <!-- Tray / Outbox base in Teal -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#14B8A6"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M 36,66 L 36,76 L 72,76 L 72,66" />
+        
+    <!-- Main Downward Extraction Arrow -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M 54,30 L 54,62 M 42,50 L 54,62 L 66,50" />
+</vector>
