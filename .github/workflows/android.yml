@@ -18,7 +18,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Android Klasorunu Bul ve Derle
+    - name: Android Klasorunu Bul, Keystore Uret ve Derle
       run: |
         # build.gradle dosyasının yerini tespit et
         BUILD_FILE=$(find . -name "build.gradle*" | head -n 1)
@@ -31,11 +31,15 @@ jobs:
         echo "Proje klasörü: $PROJECT_DIR"
         cd "$PROJECT_DIR"
         
+        # Eksik olan debug.keystore dosyasını otomatik üretelim
+        echo "Geçici debug.keystore üretiliyor..."
+        keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+        
         # Sunucudaki hazır Gradle ile doğrudan APK üret
         gradle assembleDebug
 
-    - name: APK Dosyasini Yukle
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-debug
-        path: "**/build/outputs/apk/debug/*.apk"
+- name: APK Dosyasini Yukle
+  uses: actions/upload-artifact@v4
+  with:
+    name: app-debug
+    path: "**/build/outputs/apk/debug/*.apk"
