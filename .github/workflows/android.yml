@@ -38,8 +38,8 @@ jobs:
         # Sunucudaki hazır Gradle ile doğrudan APK üret
         gradle assembleDebug
 
-- name: APK Dosyasini Yukle
-  uses: actions/upload-artifact@v4
-  with:
-    name: app-debug
-    path: "**/build/outputs/apk/debug/*.apk"
+    - name: APK Dosyasini Yukle
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug
+        path: "**/build/outputs/apk/debug/*.apk"
