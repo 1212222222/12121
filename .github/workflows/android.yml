@@ -12,6 +12,26 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Find and Move Project Files to Root
+      run: |
+        # gradlew dosyasının nerede olduğunu bulalım
+        GRADLEW_PATH=$(find . -name "gradlew" | head -n 1)
+        if [ -z "$GRADLEW_PATH" ]; then
+          echo "HATA: Projede gradlew dosyası hiçbir yerde bulunamadı!"
+          exit 1
+        fi
+        
+        # Bulunduğu klasörü tespit edelim
+        PROJECT_ROOT=$(dirname "$GRADLEW_PATH")
+        echo "Proje kök dizini bulundu: $PROJECT_ROOT"
+        
+        # Eğer alt klasördeyse, içindekileri ana dizine taşıyalım
+        if [ "$PROJECT_ROOT" != "." ]; then
+          echo "Dosyalar ana dizine taşınıyor..."
+          mv $PROJECT_ROOT/* . 2>/dev/null || true
+          mv $PROJECT_ROOT/.* . 2>/dev/null || true
+        fi
+
     - name: set up JDK 17
       uses: actions/setup-java@v4
       with:
