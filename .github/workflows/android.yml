@@ -1,0 +1,41 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Android Klasorunu Bul ve Derle
+      run: |
+        # build.gradle dosyasının yerini tespit et
+        BUILD_FILE=$(find . -name "build.gradle*" | head -n 1)
+        if [ -z "$BUILD_FILE" ]; then
+          echo "HATA: build.gradle bulunamadi!"
+          exit 1
+        fi
+        
+        PROJECT_DIR=$(dirname "$BUILD_FILE")
+        echo "Proje klasörü: $PROJECT_DIR"
+        cd "$PROJECT_DIR"
+        
+        # Sunucudaki hazır Gradle ile doğrudan APK üret
+        gradle assembleDebug
+
+    - name: APK Dosyasini Yukle
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug
+        path: "**/build/outputs/apk/debug/*.apk"
